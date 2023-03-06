@@ -59,8 +59,11 @@
 
       <section class="hero overlay">
         <h1 class="hero-title">Effective Solutions for Your Business</h1>
-        <button type="button" class="button primary">Order Service</button>
+        <button type="button" class="button primary" data-modal-open>
+          Order Service
+        </button>
       </section>
+
       <!-- end Hero image -->
 
       <!-- Our ideals and values -->
@@ -563,5 +566,17 @@
         </div>
       </div>
     </footer>
+
+    <!--------- MODAL WINDOW ------------->
+    <div class="backdrop is-hidden" data-modal>
+      <div class="modal">
+        <button type="button" class="modal-close-btn" data-modal-close>
+          <svg class="modal-close-btn-icon">
+            <use href="./images/icons.svg#close-modal"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <script src="./js/modal.js"></script>
   </body>
 </html>

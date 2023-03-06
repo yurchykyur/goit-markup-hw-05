@@ -20,6 +20,9 @@
   --doing-images-margin-column: 24px;
   --team-image-margin-column: 24px;
   --backgroung-team-list-item-color: #ffffff;
+
+  --transition-250-cubic: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --modal-background-color: #fcfcfc;
 }
 
 body {
@@ -80,9 +83,12 @@ img {
 /* logotype */
 .nav-link {
   display: flex;
-  align-items: center;
 }
+
 .logo {
+  padding-top: 24px;
+  padding-bottom: 28px;
+
   font-family: 'Raleway', sans-serif;
   font-weight: 800;
   font-size: 18px;
@@ -109,20 +115,38 @@ img {
 .site-nav .link {
   display: block;
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
 
   color: var(--dark-color);
   text-decoration: none;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0.02em;
+
+  transition: color var(--transition-250-cubic);
+
+  position: relative;
 }
 .site-nav .link:hover,
 .site-nav .link:focus {
   color: var(--pressed-state-color);
 }
+
 .site-nav .link.current {
   color: var(--pressed-state-color);
+}
+
+.site-nav .link.current::after {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  content: '';
+
+  width: 100%;
+  height: 4px;
+  background-color: var(--pressed-state-color);
+
+  border-radius: 2px;
 }
 
 /* contact adress */
@@ -145,10 +169,12 @@ img {
 .contact-adress .tel {
   display: block;
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
 
   color: var(--dark-color);
   text-decoration: none;
+
+  transition: color var(--transition-250-cubic);
 }
 .contact-adress .link:hover,
 .contact-adress .tel:hover,
@@ -213,11 +239,12 @@ img {
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+
+  transition: background-color var(--transition-250-cubic);
 }
 .button.primary:hover,
 .button.primary:focus {
   background-color: var(--pressed-state-color);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 }
 /*----------------- End Hero button -------------*/
 
@@ -405,6 +432,8 @@ img {
 
   background-color: var(--primary-brand-color);
   border-radius: 50%;
+
+  transition: background-color var(--transition-250-cubic);
 }
 
 .team .social-link .icon {
@@ -457,12 +486,16 @@ img {
   height: 88px;
   border: 1px solid var(--subtle-text-color);
   border-radius: 4px;
+
+  transition: border-color var(--transition-250-cubic);
 }
 
 .customer-link .icon {
   width: 104px;
   height: 56px;
   fill: var(--subtle-text-color);
+
+  transition: fill var(--transition-250-cubic);
 }
 
 .customer-link:hover,
@@ -531,6 +564,8 @@ img {
 
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
+
+  transition: background-color var(--transition-250-cubic);
 }
 
 .footer .social-link .icon {
@@ -545,12 +580,82 @@ img {
 
 /* END footer */
 
+/* --------- MODAL WINDOW -------------*/
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 47, 66, 0.4);
+  transition: opasity var(--transition-250-cubic),
+    visability var(--transition-250-cubic);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 408px;
+  height: 576px;
+
+  background-color: var(--modal-background-color);
+
+  transition: transform var(--transition-250-cubic);
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -75%);
+}
+
+.modal-close-btn-icon {
+  display: block;
+  width: 8px;
+  height: 8px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--accent-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color var(--transition-250-cubic),
+    background-color var(--transition-250-cubic);
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+  border-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--pressed-state-color);
+}
+
+/* --------- End MODAL WINDOW -------------*/
+
 /*  */
-/* END PAGE INDEX */
+/*------------------------- END PAGE INDEX -------------------------*/
 /*  */
 /*  */
 /*  */
-/* PORTFOLIO PAGE*/
+/* -------------------------- PORTFOLIO PAGE ---------------*/
+
 .portfolio-title {
   margin: 0;
   padding: 0;
@@ -585,6 +690,10 @@ img {
   text-align: center;
   border-color: var(--accent-color);
   cursor: pointer;
+
+  transition: border-color var(--transition-250-cubic),
+    background-color var(--transition-250-cubic),
+    color var(--transition-250-cubic), box-shadow var(--transition-250-cubic);
 }
 
 .button.secondary:hover,
@@ -609,22 +718,53 @@ img {
 
 .portfolio-examples > .item {
   flex-basis: calc((100% - 2 * var(--portfolio-examples-margin-column)) / 3);
-  box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
 }
-
-/* .portfolio-examples > .item:hover {
-  box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
-    0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
-} */
 
 .list .portfolio-link {
   display: block;
   text-decoration: none;
+  box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
+  transition: box-shadow var(--transition-250-cubic);
 }
 
-.portfolio-link:hover {
+.portfolio-link:hover,
+.portfolio-link:focus {
   box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08),
     0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
+  transform: translate(0, 0);
+}
+
+.portfolio-link:hover .card,
+.portfolio-link:focus .card {
+  transform: translate(0, 0);
+}
+
+.portfolio-list-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-examples .card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding-top: 40px;
+  padding-right: 32px;
+  padding-left: 32px;
+  margin: 0;
+  overflow: auto;
+
+  color: var(--light-color);
+  background-color: var(--primary-brand-color);
+
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+
+  transform: translate(0, 100%);
+  transition: transform var(--transition-250-cubic);
 }
 
 .examples-content {
@@ -647,15 +787,3 @@ img {
   line-height: 1.5;
   letter-spacing: 0.02em;
 }
-
-/* .list .portfolio-subtitle:hover,
-.list .portfolio-subtitle:focus,
-.list .portfolio-text:hover,
-.list .portfolio-text:focus {
-  color: var(--pressed-state-color);
-} */
-
-/* .list .portfolio-link:hover,
-.list .portfolio-link:focus {
-  color: var(--pressed-state-color);
-} */
