@@ -453,8 +453,7 @@ img {
 }
 
 .customer-title {
-  margin: 0;
-  margin-bottom: 72px;
+  margin: 0 0 72px 0;
   font-size: 36px;
   line-height: 1.11;
 
